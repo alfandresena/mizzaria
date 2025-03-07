@@ -2,10 +2,16 @@
 
 ## 1. Créer l’environnement virtuel
 Dans le dossier du projet (**`mizzaria`**), crée un environnement virtuel :
-```bash
-cd /mizzaria
-python -m venv venv
-```
+- **Windows** :
+  ```bash
+  cd \mizzaria
+  python -m venv venv
+  ```
+- **Linux/Mac** :
+  ```bash
+  cd /chemin/vers/mizzaria
+  python3 -m venv venv
+  ```
 Le dossier **`venv`** contiendra l'environnement virtuel.
 
 ## 2. Ajouter à `.gitignore`
