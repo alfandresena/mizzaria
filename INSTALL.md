@@ -3,7 +3,7 @@
 ## 1. Créer l’environnement virtuel
 Dans le dossier du projet (**`mizzaria`**), crée un environnement virtuel :
 ```bash
-cd /chemin/vers/mizzaria
+cd /mizzaria
 python -m venv venv
 ```
 Le dossier **`venv`** contiendra l'environnement virtuel.
