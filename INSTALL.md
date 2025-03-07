@@ -4,7 +4,7 @@
 Dans le dossier du projet (**`mizzaria`**), crée un environnement virtuel :
 - **Windows** :
   ```bash
-  cd \mizzaria
+  cd .\mizzaria\
   python -m venv venv
   ```
 - **Linux/Mac** :
