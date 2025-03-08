@@ -4,7 +4,7 @@ import PizzaOrderForm from "./components/PizzaOrderForm";
 function App() {
   return (
     <div>
-      <h1>Commander une pizza</h1>
+      <h1>Bienvenue!</h1>
       <PizzaOrderForm />
     </div>
   );

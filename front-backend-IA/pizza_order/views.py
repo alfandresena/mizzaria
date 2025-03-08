@@ -15,16 +15,19 @@ def create_pizza_order(request):
         if not user_request:
             return Response({"error": "La demande de l'utilisateur est requise."}, status=status.HTTP_400_BAD_REQUEST)
 
-        # Appeler le script IA pour obtenir la reponse
+        # Appeler le script IA pour obtenir la réponse
         response_message, options = get_ai_response(user_request)
 
-        #Creer un nouvel ordre de pizza avec la reponse de l'IA
+        # Créer un nouvel ordre de pizza avec la réponse de l'IA
         pizza_order = PizzaOrder.objects.create(
             user_request=user_request,
             response_message=response_message,
             options=options
         )
 
-        #Serialiser et renvoyer la reponse
+        # Serialiser et renvoyer la réponse
         serializer = PizzaOrderSerializer(pizza_order)
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response({
+            'response_message': response_message,
+            'options': options
+        }, status=status.HTTP_201_CREATED)

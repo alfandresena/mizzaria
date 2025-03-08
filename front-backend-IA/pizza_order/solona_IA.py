@@ -7,8 +7,8 @@ from selenium.webdriver.support import expected_conditions as EC
 
 def get_ai_response(user_request):
     driver = uc.Chrome()
-    response_message = ""
-    options = []
+    response_message = "Voici la réponse de l'IA à votre demande."
+    options = ["Option 1", "Option 2", "Option 3"]
 
     try:
         driver.get("https://chat.openai.com/")
@@ -32,7 +32,8 @@ def get_ai_response(user_request):
             response_text = messages[-1].text
             # Filtrage pour récupérer le message et les options
             if "message" in response_text and "options" in response_text:
-                response_message = response_text.split("message:")[1].split("options:")[0].strip()
+                #response_message = response_text.split("message:")[1].split("options:")[0].strip()
+                response_message = messages
                 options_raw = response_text.split("options:")[1].strip()
                 options = options_raw.split("\n")  # Assuming each option is on a new line.
         else:
