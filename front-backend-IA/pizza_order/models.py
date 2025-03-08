@@ -1,10 +1,9 @@
 from django.db import models
 
-# Create your models here.
 class PizzaOrder(models.Model):
-    user_request = models.CharField(max_length=512)
-    response_message = models.TextField(null=True, blank=True)
-    options = models.JSONField(null=True, blank=True)
+    user_request = models.TextField()
+    response_message = models.TextField(default="")  # Valeur par défaut vide
+    options = models.JSONField(default=list)  # Valeur par défaut pour éviter NULL
 
     def __str__(self):
-        return f"Demande: {self.user_request}"
+        return f"Commande: {self.user_request}"

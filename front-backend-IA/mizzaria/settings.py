@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     # Application de gestion des pizzas que tu vas créer
-    'app_pizza',  # Ajout de ton application spécifique pour gérer les demandes de pizza
+    'pizza_order',  # Ajout de ton application spécifique pour gérer les demandes de pizza
 
     # Si tu utilises Django Rest Framework pour les API
     'rest_framework',  # Si tu as besoin d'API RESTful (facultatif mais recommandé)
@@ -56,7 +56,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'mizzaria.urls'
@@ -64,7 +64,7 @@ ROOT_URLCONF = 'mizzaria.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'mizzaria/templates'],  # Assurez-vous que ce chemin est correct
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -120,6 +120,8 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 
 # Static files (CSS, JavaScript, Images)

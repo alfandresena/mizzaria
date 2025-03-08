@@ -15,9 +15,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from . import views  # Assurez-vous d'importer les vues
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('pizza_order.urls')),  # Inclure l'API pizza_order
+    path('', views.index, name='index'),  # Ajoutez une route pour la racine
 ]
+
