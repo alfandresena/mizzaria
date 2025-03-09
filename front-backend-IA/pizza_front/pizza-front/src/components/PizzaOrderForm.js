@@ -3,8 +3,7 @@ import axios from 'axios';
 
 const PizzaOrderForm = () => {
     const [userRequest, setUserRequest] = useState('');
-    const [responseMessage, setResponseMessage] = useState('');
-    const [options, setOptions] = useState([]);
+    const [responseMessage, setResponseMessage] = useState(''); // Stocker la réponse de l'IA
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -14,18 +13,12 @@ const PizzaOrderForm = () => {
                 user_request: userRequest
             });
 
-            console.log('Réponse brute de l\'IA:', response.data);
-            console.log('Messages:', response.data.messages);
-
-            // Afficher la réponse de l'IA dans la console
-            console.log('Réponse de l\'IA:', response.data.response_message);
-            console.log('Options:', response.data.options);
-
-            // Mettre à jour l'état pour afficher les données sur la page
+            // Mettre à jour la réponse affichée
             setResponseMessage(response.data.response_message);
-            setOptions(response.data.options);
+
         } catch (error) {
             console.error('Erreur:', error);
+            setResponseMessage("Erreur lors de la communication avec l'IA.");
         }
     };
 
@@ -42,13 +35,12 @@ const PizzaOrderForm = () => {
                 <button type="submit">Envoyer</button>
             </form>
 
-            {responseMessage && <p>Message de l'IA: {responseMessage}</p>}
-            {options.length > 0 && (
-                <ul>
-                    {options.map((option, index) => (
-                        <li key={index}>{option}</li>
-                    ))}
-                </ul>
+            {/* Afficher la réponse de l'IA */}
+            {responseMessage && (
+                <div>
+                    <h3>Réponse de l'IA :</h3>
+                    <p>{responseMessage}</p>
+                </div>
             )}
         </div>
     );

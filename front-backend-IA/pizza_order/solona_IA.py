@@ -7,8 +7,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 def get_ai_response(user_request):
     driver = uc.Chrome()
-    response_message = "Voici la réponse de l'IA à votre demande."
-    options = ["Option 1", "Option 2", "Option 3"]
+    response_message = ""
 
     try:
         driver.get("https://chat.openai.com/")
@@ -24,24 +23,21 @@ def get_ai_response(user_request):
         text_input.send_keys(message, Keys.ENTER)
 
         # Attendre la réponse
-        time.sleep(60)
+        time.sleep(10)
 
-        # Extraire la réponse de l'IA
+        # Vérifier si une réponse apparaît
         messages = driver.find_elements(By.CSS_SELECTOR, "div.markdown")
         if messages:
-            response_text = messages[-1].text
-            # Filtrage pour récupérer le message et les options
-            if "message" in response_text and "options" in response_text:
-                #response_message = response_text.split("message:")[1].split("options:")[0].strip()
-                response_message = messages
-                options_raw = response_text.split("options:")[1].strip()
-                options = options_raw.split("\n")  # Assuming each option is on a new line.
+            response_message = messages[-1].text  # Récupérer la dernière réponse
+            print("✅ Réponse trouvée :", response_message)
         else:
-            response_message = "Désolé, aucune réponse de l'IA."
+            response_message = "Je n'ai pas pu obtenir de réponse."
+            print("❌ Aucune réponse reçue.")
+
     except Exception as e:
         response_message = "Une erreur s'est produite."
         print(f"Erreur: {e}")
     finally:
         driver.quit()
 
-    return response_message, options
+    return response_message
