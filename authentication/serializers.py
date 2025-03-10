@@ -15,19 +15,32 @@ class RegisterSerializer(serializers.ModelSerializer):
             email=validated_data['email'],
             password=validated_data['password'],
             address=validated_data.get('address', ''),
-            phone_number=validated_data.get('phone_number', '')
+            phone_number=validated_data.get('phone_number', ''),
+            is_active=False
         )
         return user
-
+    
 class LoginSerializer(serializers.Serializer):
     username = serializers.CharField()
     password = serializers.CharField()
 
     def validate(self, data):
-        user = authenticate(**data)
-        if user and user.is_active:
-            return user
-        raise serializers.ValidationError("Invalid credentials")
+        username = data.get('username')
+        password = data.get('password')
+
+        try:
+            user = CustomUser.objects.get(username=username)
+        except CustomUser.DoesNotExist:
+            raise serializers.ValidationError("Invalid credentials.")
+
+        if not user.is_active:
+            raise serializers.ValidationError("Account not activated. Please check your email to activate your account.")
+
+        user = authenticate(username=username, password=password)
+        if user is None:
+            raise serializers.ValidationError("Invalid credentials.")
+
+        return {'user': user}
 
 class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:

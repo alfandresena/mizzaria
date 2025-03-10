@@ -15,21 +15,31 @@ class RegisterView(APIView):
     def post(self, request):
         serializer = RegisterSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            user = serializer.save()
+            token = default_token_generator.make_token(user)
+            uid = urlsafe_base64_encode(force_bytes(user.pk))
+            activation_url = f"http://127.0.0.1:8000/api/auth/activate/{uid}/{token}/"
+            send_mail(
+                'Activate Your Account',
+                f'Click here to activate your account: {activation_url}',
+                'from@example.com',
+                [user.email],
+                fail_silently=False,
+            )
+            return Response({"detail": "Account created. Check your email to activate.", "status": status.HTTP_201_CREATED}, status=status.HTTP_201_CREATED)
         return Response({"error": serializer.errors, "status": status.HTTP_400_BAD_REQUEST}, status=status.HTTP_400_BAD_REQUEST)
 
 class LoginView(APIView):
     def post(self, request):
         serializer = LoginSerializer(data=request.data)
         if serializer.is_valid():
-            user = serializer.validated_data
+            user = serializer.validated_data['user']
             refresh = RefreshToken.for_user(user)
             return Response({
-                'refresh': str(refresh),
-                'access': str(refresh.access_token),
-            })
-        return Response(serializer.errors, status=status.HTTP400_BAD_REQUEST)
+                "refresh": str(refresh),
+                "access": str(refresh.access_token),
+            }, status=status.HTTP_200_OK)
+        return Response({"error": serializer.errors, "status": status.HTTP_400_BAD_REQUEST}, status=status.HTTP_400_BAD_REQUEST)
 
 class UserProfileView(APIView):
     permission_classes = [IsAuthenticated]
@@ -86,5 +96,22 @@ class PasswordResetConfirmView(APIView):
             user.set_password(new_password)
             user.save()
             return Response({"detail": "Password reset successfully."}, status=status.HTTP_200_OK)
+        else:
+            return Response({"error": "Invalid or expired token.", "status": status.HTTP_400_BAD_REQUEST}, status=status.HTTP_400_BAD_REQUEST)
+
+class ActivateAccountView(APIView):
+    def get(self, request, uidb64, token):
+        try:
+            uid = force_str(urlsafe_base64_decode(uidb64))
+            user = CustomUser.objects.get(pk=uid)
+        except (TypeError, ValueError, OverflowError, CustomUser.DoesNotExist):
+            return Response({"error": "Invalid activation link.", "status": status.HTTP_400_BAD_REQUEST}, status=status.HTTP_400_BAD_REQUEST)
+
+        if default_token_generator.check_token(user, token):
+            if user.is_active:
+                return Response({"error": "Account already activated.", "status": status.HTTP_400_BAD_REQUEST}, status=status.HTTP_400_BAD_REQUEST)
+            user.is_active = True
+            user.save()
+            return Response({"detail": "Account activated successfully.", "status": status.HTTP_200_OK}, status=status.HTTP_200_OK)
         else:
             return Response({"error": "Invalid or expired token.", "status": status.HTTP_400_BAD_REQUEST}, status=status.HTTP_400_BAD_REQUEST)
