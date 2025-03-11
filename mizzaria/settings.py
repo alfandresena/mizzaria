@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
+
+# if we wanna use the server onrender : 
 from decouple import config
 import dj_database_url
 
@@ -43,7 +45,10 @@ AUTH_USER_MODEL = 'authentication.CustomUser'
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # SECRET_KEY = 'django-insecure-5k=@$&2jj+40qsb6_)h1px66ttdfjxs*j*rzzqre@n^1@=^rh_'
+
+# if we wanna use the server onrender :
 SECRET_KEY = config('SECRET_KEY')
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -107,9 +112,14 @@ WSGI_APPLICATION = 'mizzaria.wsgi.application'
 #     }
 # }
 
+
+# if we wanna use the server onrender : 
+
 DATABASES = {
     'default': dj_database_url.parse(config('DATABASE_URL'))
 }
+
+
 
 
 # Password validation
