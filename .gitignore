@@ -1,4 +1,4 @@
-.venv/
 .env
+venv/
 venvLinux/
 db.sqlite3
