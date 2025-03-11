@@ -1,5 +1,6 @@
 import random
 from typing import List, Dict, Any, Optional
+from django.http import JsonResponse
 
 
 class AIService:
@@ -7,7 +8,7 @@ class AIService:
     Service simulant les fonctionnalités d'IA pour l'application de pizza.
     Dans un environnement de production, cette classe interagirait avec un véritable service d'IA.
     """
-    
+
     @staticmethod
     def get_top_searches() -> Dict[str, List[str]]:
         """Retourne les suggestions de recherche populaires."""
@@ -19,7 +20,7 @@ class AIService:
         }
     
     @staticmethod
-    def search(label: str, localisation: Optional[str] = None, beer_token: Optional[str] = None) -> Dict[str, List[Dict[str, Any]]]:
+    def search(label: str, localisation: Optional[str] = None, beer_token: Optional[str] = None) -> JsonResponse:
         """Simule une recherche basée sur les critères fournis."""
         # Génération aléatoire de résultats (dans un système réel, cela serait basé sur l'IA)
         pizzas = []
@@ -59,7 +60,7 @@ class AIService:
             menu.append({
                 "nom": f"Pizza {random.choice(['Margherita', 'Quatre Fromages', 'Pepperoni', 'Calzone', 'Royale'])} #{i}",
                 "image": f"https://example.com/pizza{i}.jpg",
-                "localisation": pizzeria_data["nom"],
+                "localisation": pizzeria_data.get("nom", "Pizzeria inconnue"),
                 "rating": round(random.uniform(3.0, 5.0), 1),
                 "nombre_personne_ayant_noter": random.randint(10, 500)
             })
@@ -67,7 +68,7 @@ class AIService:
         return menu
     
     @staticmethod
-    def get_pizza_details(pizza_data: Dict[str, Any]) -> Dict[str, Any]:
+    def get_pizza_details(pizza_data: Dict[str, Any]) -> JsonResponse:
         """Retourne les détails d'une pizza."""
         ingredients = []
         
@@ -88,7 +89,7 @@ class AIService:
                 "image": f"https://example.com/{img}"
             })
         
-        return {
+        return JsonResponse({
             "nom": pizza_data["nom"],
             "image": pizza_data["image"],
             "localisation": pizza_data["localisation"],
@@ -98,4 +99,4 @@ class AIService:
             "disponibilite_pm": random.choice([True, False]),
             "disponibilite_gm": random.choice([True, False]),
             "liste_ingredients": ingredients
-        }
+        })
