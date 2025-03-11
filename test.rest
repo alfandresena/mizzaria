@@ -22,14 +22,14 @@ Content-Type: application/json
 
 ### Test 3: Get user profile (GET /api/auth/profile/) with JWT
 GET http://127.0.0.1:8000/api/auth/profile/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjEyNjgxLCJpYXQiOjE3NDE2MDkwODEsImp0aSI6ImI3OTExN2ViMmM5NDRiZDI5MWEyZmMzZGUxZjRiNzZkIiwidXNlcl9pZCI6MX0.a4fxHtMnL6FDApAETdI5UjYavdsW9GtyXx3Qf_tAJUs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNzI0NTE3LCJpYXQiOjE3NDE3MjA5MTcsImp0aSI6ImRjMGUyM2MxZTUyZDRhYzk5ODIwNzg4NTg0ZmIzZTllIiwidXNlcl9pZCI6Mn0.Sv0FWDm9VVruKsa4p35UkRZZxZFv5HWoRcEqaYtIxcA
 Content-Type: application/json
 
 ###
 
 ### Test 4: Logout (POST /api/auth/logout/) with JWT
 POST http://127.0.0.1:8000/api/auth/logout/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNDY5MDc4LCJpYXQiOjE3NDE0NjU0NzgsImp0aSI6ImQ2MGViNjMzMTRkYjRiM2Q4NzdjNjBhNDY0ODFlMGYwIiwidXNlcl9pZCI6MX0.lBZKjLMCzS01edOxM7YHjvj4LhvnEcZrP3q2vAzQCY8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNzI0NTE3LCJpYXQiOjE3NDE3MjA5MTcsImp0aSI6ImRjMGUyM2MxZTUyZDRhYzk5ODIwNzg4NTg0ZmIzZTllIiwidXNlcl9pZCI6Mn0.Sv0FWDm9VVruKsa4p35UkRZZxZFv5HWoRcEqaYtIxcA
 Content-Type: application/json
 
 ###
@@ -46,7 +46,7 @@ POST http://127.0.0.1:8000/api/auth/login/
 Content-Type: application/json
 
 {
-    "username": "rojogpt",
+    "username": "rojogpt2",
     "password": "newpassword123"
 }
 ###
