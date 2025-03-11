@@ -82,7 +82,14 @@ WSGI_APPLICATION = 'mizzaria.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.parse(config('DATABASE_URL'))
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'mizzaria',
+        'USER': 'postgres',
+        'PASSWORD': 'P1clasax!postgresql',
+        'HOST': 'localhost',  # ou l'IP du serveur PostgreSQL
+        'PORT': '5432',  # port par défaut de PostgreSQL
+    }
 }
 
 
