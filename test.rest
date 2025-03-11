@@ -1,0 +1,52 @@
+### Test 1: Register a new user (POST /api/auth/register/)
+POST http://127.0.0.1:8000/api/auth/register/
+Content-Type: application/json
+
+{
+    "username": "rojogpt2",
+    "email": "rojogpt2@gmail.com",
+    "password": "password123"
+}
+
+###
+
+### Test 2: Login to get JWT token (POST /api/auth/login/)
+POST http://127.0.0.1:8000/api/auth/login/
+Content-Type: application/json
+
+{
+    "username": "rojogpt2",
+    "password": "password123"
+}
+###
+
+### Test 3: Get user profile (GET /api/auth/profile/) with JWT
+GET http://127.0.0.1:8000/api/auth/profile/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNjEyNjgxLCJpYXQiOjE3NDE2MDkwODEsImp0aSI6ImI3OTExN2ViMmM5NDRiZDI5MWEyZmMzZGUxZjRiNzZkIiwidXNlcl9pZCI6MX0.a4fxHtMnL6FDApAETdI5UjYavdsW9GtyXx3Qf_tAJUs
+Content-Type: application/json
+
+###
+
+### Test 4: Logout (POST /api/auth/logout/) with JWT
+POST http://127.0.0.1:8000/api/auth/logout/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNDY5MDc4LCJpYXQiOjE3NDE0NjU0NzgsImp0aSI6ImQ2MGViNjMzMTRkYjRiM2Q4NzdjNjBhNDY0ODFlMGYwIiwidXNlcl9pZCI6MX0.lBZKjLMCzS01edOxM7YHjvj4LhvnEcZrP3q2vAzQCY8
+Content-Type: application/json
+
+###
+
+### Test 5: Reset Password (POST /api/auth/reset-password/)
+POST http://127.0.0.1:8000/api/auth/reset-password/
+Content-Type: application/json
+
+{
+    "email": "rojogpt2@gmail.com"
+}
+### Test 6: Login to get JWT token with new password(POST /api/auth/login/)
+POST http://127.0.0.1:8000/api/auth/login/
+Content-Type: application/json
+
+{
+    "username": "rojogpt",
+    "password": "newpassword123"
+}
+###
