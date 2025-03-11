@@ -21,4 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/auth/', include('authentication.urls')),
     path('orders/', include('orders.urls')),
+    path('auto-completion/', include('auto_completion.urls')),
 ]
