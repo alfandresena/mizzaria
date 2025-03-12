@@ -33,9 +33,10 @@ class AgentInterface:
         """
 
         # Get the source URL to search for pizzarias from
-        url_query = """\
+        url_query = f"""
             liste pizzeria
             via : google search
+            prompt_user : {user_prompt}  Si le prompt utilisateur ne précise pas de localisation, prioriser les résultats les plus proches de sa localisation via : {self.user_data}
         """
         url_list = self.tav_client.search(query=url_query)
 
