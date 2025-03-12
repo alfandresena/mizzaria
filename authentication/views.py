@@ -11,7 +11,7 @@ from django.utils.encoding import force_bytes, force_str
 from django.core.mail import send_mail
 from .models import CustomUser
 
-link = "https://mizzaria.onrendr.com/"
+link = "https://mizzaria.onrender.com/"
 class RegisterView(APIView):
     def post(self, request):
         serializer = RegisterSerializer(data=request.data)
