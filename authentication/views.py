@@ -11,7 +11,7 @@ from django.utils.encoding import force_bytes, force_str
 from django.core.mail import send_mail
 from .models import CustomUser
 
-link_onrender = "https://mizzaria.onrendr.com/"
+link = "https://mizzaria.onrendr.com/"
 class RegisterView(APIView):
     def post(self, request):
         serializer = RegisterSerializer(data=request.data)
@@ -19,7 +19,7 @@ class RegisterView(APIView):
             user = serializer.save()
             token = default_token_generator.make_token(user)
             uid = urlsafe_base64_encode(force_bytes(user.pk))
-            activation_url = f"{link_onrender}api/auth/activate/{uid}/{token}/"
+            activation_url = f"{link}api/auth/activate/{uid}/{token}/"
             send_mail(
                 'Activate Your Account',
                 f'Click here to activate your account: {activation_url}',
@@ -68,7 +68,7 @@ class PasswordResetView(APIView):
             user = CustomUser.objects.get(email=email)
             token = default_token_generator.make_token(user)
             uid = urlsafe_base64_encode(force_bytes(user.pk))
-            reset_url = f"{link_onrender}api/auth/reset/{uid}/{token}/"
+            reset_url = f"{link}api/auth/reset/{uid}/{token}/"
             send_mail(
                 'Password Reset',
                 f'Use this link to reset your password: {reset_url}',
