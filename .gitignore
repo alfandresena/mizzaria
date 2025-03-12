@@ -1,2 +1,5 @@
-db.sqlite3
+.venv/
+.env
+venv/
 venvLinux/
+db.sqlite3
