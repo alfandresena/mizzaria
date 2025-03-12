@@ -83,10 +83,10 @@ class AgentInterface:
                 response_modalities=["TEXT"],
             )
         )
-
+        rep=response.text.replace("```json", "").replace("```", "").strip()
         # Return the response
         try:
-            return json.loads(response.text)
+            return json.loads(rep)
         except json.JSONDecodeError:
             raise Exception(f"Error decoding the response.\nCurrent output: {response.text}")
 
@@ -133,12 +133,13 @@ class AgentInterface:
                     response_modalities=["TEXT"],
                 )
             )
-
+            rep=response.text.replace("```json", "").replace("```", "").strip()
             # Return the response
             try:
-                return json.loads(response.text)
+                return json.loads(rep)
             except json.JSONDecodeError:
                 raise Exception(f"Error decoding the response.\nCurrent output: {response.text}")
+            # Return the response
 
 
         def get_all_pizza_by_pizzeria(self, pizzeria: str):
@@ -181,8 +182,9 @@ class AgentInterface:
                 )
             )
 
+            rep=response.text.replace("```json", "").replace("```", "").strip()
             # Return the response
             try:
-                return json.loads(response.text)
+                return json.loads(rep)
             except json.JSONDecodeError:
                 raise Exception(f"Error decoding the response.\nCurrent output: {response.text}")
