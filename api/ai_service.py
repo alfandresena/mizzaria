@@ -1,6 +1,17 @@
 import random
 from typing import List, Dict, Any, Optional
 from django.http import JsonResponse
+from ..mizzaria.utils import AgentInterface
+
+user_data = {
+       "location": "",  # Replace with relevant user data
+       "preferences": {
+           "pizza_type": "",  # Replace with relevant user preferences
+           # Add more preferences as needed
+       }
+   }
+
+agent = AgentInterface(user_data)
 
 
 class AIService:
@@ -20,6 +31,15 @@ class AIService:
         }
     
     @staticmethod
+    # def search(label: str, beer_token: Optional[str] = None) -> JsonResponse:
+    #     pizza = agent.get_all_pizza(label)
+    #     pizzeria = agent.get_pizzaria(label)
+
+    #     return {
+    #         "pizza": pizza,
+    #         "pizzeria": pizzeria
+    #     }    
+
     def search(label: str, localisation: Optional[str] = None, beer_token: Optional[str] = None) -> JsonResponse:
         """Simule une recherche basée sur les critères fournis."""
         # Génération aléatoire de résultats (dans un système réel, cela serait basé sur l'IA)

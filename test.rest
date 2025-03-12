@@ -46,7 +46,12 @@ POST http://127.0.0.1:8000/api/auth/login/
 Content-Type: application/json
 
 {
-    "username": "rojogpt2",
-    "password": "newpassword123"
+    "label": "pizza 4 fromages",
+    "localisation": "Akatso"
 }
+###
+
+GET http://127.0.0.1:8000/api/search/
+Content-Type: application/json
+
 ###
