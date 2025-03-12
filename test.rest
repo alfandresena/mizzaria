@@ -1,5 +1,5 @@
 ### Test 1: Register a new user (POST /api/auth/register/)
-POST http://127.0.0.1:8000/api/auth/register/
+POST http://192.168.1.247:8000/api/auth/register/
 Content-Type: application/json
 
 {
@@ -11,42 +11,42 @@ Content-Type: application/json
 ###
 
 ### Test 2: Login to get JWT token (POST /api/auth/login/)
-POST http://127.0.0.1:8000/api/auth/login/
+POST https://622c-102-18-13-98.ngrok-free.app/api/auth/login/
 Content-Type: application/json
 
 {
-    "username": "rojogpt2",
+    "username": "rojogpt1",
     "password": "password123"
 }
 ###
 
 ### Test 3: Get user profile (GET /api/auth/profile/) with JWT
-GET http://127.0.0.1:8000/api/auth/profile/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNzI0NTE3LCJpYXQiOjE3NDE3MjA5MTcsImp0aSI6ImRjMGUyM2MxZTUyZDRhYzk5ODIwNzg4NTg0ZmIzZTllIiwidXNlcl9pZCI6Mn0.Sv0FWDm9VVruKsa4p35UkRZZxZFv5HWoRcEqaYtIxcA
+GET https://622c-102-18-13-98.ngrok-free.app/api/auth/profile/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNzUxNDcyLCJpYXQiOjE3NDE3NDc4NzIsImp0aSI6ImVjMTgxYWU5MTc3MTQ4ZGQ5NTcwNDljNWYwMDk4N2E1IiwidXNlcl9pZCI6M30.q1kurHDuWE1YEtCsZVFn2UNRCkKoCQh-pQzKywdONBg
 Content-Type: application/json
 
 ###
 
 ### Test 4: Logout (POST /api/auth/logout/) with JWT
-POST http://127.0.0.1:8000/api/auth/logout/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNzI0NTE3LCJpYXQiOjE3NDE3MjA5MTcsImp0aSI6ImRjMGUyM2MxZTUyZDRhYzk5ODIwNzg4NTg0ZmIzZTllIiwidXNlcl9pZCI6Mn0.Sv0FWDm9VVruKsa4p35UkRZZxZFv5HWoRcEqaYtIxcA
+POST https://622c-102-18-13-98.ngrok-free.app/api/auth/logout/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNzUxNDcyLCJpYXQiOjE3NDE3NDc4NzIsImp0aSI6ImVjMTgxYWU5MTc3MTQ4ZGQ5NTcwNDljNWYwMDk4N2E1IiwidXNlcl9pZCI6M30.q1kurHDuWE1YEtCsZVFn2UNRCkKoCQh-pQzKywdONBg
 Content-Type: application/json
 
 ###
 
 ### Test 5: Reset Password (POST /api/auth/reset-password/)
-POST http://127.0.0.1:8000/api/auth/reset-password/
+POST https://622c-102-18-13-98.ngrok-free.app/api/auth/reset-password/
 Content-Type: application/json
 
 {
-    "email": "rojogpt2@gmail.com"
+    "email": "rojogpt1@gmail.com"
 }
 ### Test 6: Login to get JWT token with new password(POST /api/auth/login/)
-POST http://127.0.0.1:8000/api/auth/login/
+POST https://622c-102-18-13-98.ngrok-free.app/api/auth/login/
 Content-Type: application/json
 
 {
-    "username": "rojogpt2",
+    "username": "rojogpt1",
     "password": "newpassword123"
 }
 ###
