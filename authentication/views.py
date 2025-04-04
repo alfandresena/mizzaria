@@ -12,7 +12,7 @@ from django.core.mail import send_mail
 from .models import CustomUser
 
 
-baseUrl = 'http://192.168.1.247:8000/'
+baseUrl = 'https://mizzaria.onrender.com/'
 class RegisterView(APIView):
     def post(self, request):
         serializer = RegisterSerializer(data=request.data)
