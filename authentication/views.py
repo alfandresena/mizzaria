@@ -2,18 +2,45 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
-from .serializers import RegisterSerializer, LoginSerializer, UserProfileSerializer
-from django.contrib.auth import logout
 from rest_framework.permissions import IsAuthenticated
+from django.contrib.auth import logout
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 from django.core.mail import send_mail
-from .models import CustomUser
 
+from .models import CustomUser
+from .serializers import RegisterSerializer, LoginSerializer, UserProfileSerializer
+
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
 
 baseUrl = 'https://mizzaria.onrender.com/'
+<<<<<<< HEAD
+=======
+
+# --- SCHEMAS POUR LES REQUÊTES PERSONNALISÉES ---
+email_param = openapi.Schema(
+    type=openapi.TYPE_OBJECT,
+    properties={
+        'email': openapi.Schema(type=openapi.TYPE_STRING, format='email'),
+    },
+    required=['email'],
+)
+
+new_password_param = openapi.Schema(
+    type=openapi.TYPE_OBJECT,
+    properties={
+        'new_password': openapi.Schema(type=openapi.TYPE_STRING),
+    },
+    required=['new_password'],
+)
+
+# --- REGISTER ---
+>>>>>>> 745846bf0cc3dcb04c796a36c60c1739fa83f644
 class RegisterView(APIView):
+
+    @swagger_auto_schema(request_body=RegisterSerializer)
     def post(self, request):
         serializer = RegisterSerializer(data=request.data)
         if serializer.is_valid():
@@ -28,10 +55,19 @@ class RegisterView(APIView):
                 [user.email],
                 fail_silently=False,
             )
-            return Response({"detail": "Account created. Check your email to activate.", "status": status.HTTP_201_CREATED}, status=status.HTTP_201_CREATED)
-        return Response({"error": serializer.errors, "status": status.HTTP_400_BAD_REQUEST}, status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                {"detail": "Account created. Check your email to activate.", "status": status.HTTP_201_CREATED},
+                status=status.HTTP_201_CREATED
+            )
+        return Response(
+            {"error": serializer.errors, "status": status.HTTP_400_BAD_REQUEST},
+            status=status.HTTP_400_BAD_REQUEST
+        )
 
+# --- LOGIN ---
 class LoginView(APIView):
+
+    @swagger_auto_schema(request_body=LoginSerializer)
     def post(self, request):
         serializer = LoginSerializer(data=request.data)
         if serializer.is_valid():
@@ -41,8 +77,12 @@ class LoginView(APIView):
                 "refresh": str(refresh),
                 "access": str(refresh.access_token),
             }, status=status.HTTP_200_OK)
-        return Response({"error": serializer.errors, "status": status.HTTP_400_BAD_REQUEST}, status=status.HTTP_400_BAD_REQUEST)
+        return Response(
+            {"error": serializer.errors, "status": status.HTTP_400_BAD_REQUEST},
+            status=status.HTTP_400_BAD_REQUEST
+        )
 
+# --- USER PROFILE ---
 class UserProfileView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -50,9 +90,11 @@ class UserProfileView(APIView):
         serializer = UserProfileSerializer(request.user)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+# --- LOGOUT ---
 class LogoutView(APIView):
     permission_classes = [IsAuthenticated]
 
+    @swagger_auto_schema()
     def post(self, request):
         try:
             logout(request)
@@ -60,7 +102,10 @@ class LogoutView(APIView):
         except Exception as e:
             return Response({"error": str(e), "status": status.HTTP_400_BAD_REQUEST}, status=status.HTTP_400_BAD_REQUEST)
 
+# --- PASSWORD RESET (Request email) ---
 class PasswordResetView(APIView):
+
+    @swagger_auto_schema(request_body=email_param)
     def post(self, request):
         email = request.data.get('email')
         if not email:
@@ -83,7 +128,10 @@ class PasswordResetView(APIView):
         except Exception as e:
             return Response({"error": str(e), "status": status.HTTP_500_INTERNAL_SERVER_ERROR}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+# --- PASSWORD RESET CONFIRM ---
 class PasswordResetConfirmView(APIView):
+
+    @swagger_auto_schema(request_body=new_password_param)
     def post(self, request, uidb64, token):
         try:
             uid = force_str(urlsafe_base64_decode(uidb64))
@@ -101,6 +149,7 @@ class PasswordResetConfirmView(APIView):
         else:
             return Response({"error": "Invalid or expired token.", "status": status.HTTP_400_BAD_REQUEST}, status=status.HTTP_400_BAD_REQUEST)
 
+# --- ACTIVATE ACCOUNT ---
 class ActivateAccountView(APIView):
     def get(self, request, uidb64, token):
         try:
@@ -114,6 +163,6 @@ class ActivateAccountView(APIView):
                 return Response({"error": "Account already activated.", "status": status.HTTP_400_BAD_REQUEST}, status=status.HTTP_400_BAD_REQUEST)
             user.is_active = True
             user.save()
-            return Response({"detail": "Account activated successfully.", "status": status.HTTP_200_OK}, status=status.HTTP_200_OK)
+            return Response({"detail": "Account activated successfully.", "status": status.HTTP_200_OK})
         else:
             return Response({"error": "Invalid or expired token.", "status": status.HTTP_400_BAD_REQUEST}, status=status.HTTP_400_BAD_REQUEST)
