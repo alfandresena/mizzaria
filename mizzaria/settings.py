@@ -46,7 +46,7 @@ AUTH_USER_MODEL = 'authentication.CustomUser'
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # if we wanna use the server onrender :
-SECRET_KEY = config('SECRET_KEY')
+# SECRET_KEY = config('SECRET_KEY')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -116,9 +116,9 @@ WSGI_APPLICATION = 'mizzaria.wsgi.application'
 
 # if we wanna use the server onrender : 
 
-DATABASES = {
-    'default': dj_database_url.parse(config('DATABASE_URL'))
-}
+# DATABASES = {
+#     'default': dj_database_url.parse(config('DATABASE_URL'))
+# }
 
 
 
