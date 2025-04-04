@@ -15,7 +15,7 @@ from datetime import timedelta
 
 # if we wanna use the server onrender : 
 from decouple import config
-import dj_database_url
+# import dj_database_url
 import os
 
 
@@ -46,7 +46,7 @@ AUTH_USER_MODEL = 'authentication.CustomUser'
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # if we wanna use the server onrender :
-# SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = 'django-insecure-5k=@$&2jj+40qsb6_)h1px66ttdfjxs*j*rzzqre@n^1@=^rh_'
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
