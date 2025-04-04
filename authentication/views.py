@@ -16,10 +16,6 @@ from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 
 baseUrl = 'https://mizzaria.onrender.com/'
-<<<<<<< HEAD
-=======
-
-# --- SCHEMAS POUR LES REQUÊTES PERSONNALISÉES ---
 email_param = openapi.Schema(
     type=openapi.TYPE_OBJECT,
     properties={
@@ -36,8 +32,6 @@ new_password_param = openapi.Schema(
     required=['new_password'],
 )
 
-# --- REGISTER ---
->>>>>>> 745846bf0cc3dcb04c796a36c60c1739fa83f644
 class RegisterView(APIView):
 
     @swagger_auto_schema(request_body=RegisterSerializer)
