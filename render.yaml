@@ -1,7 +1,7 @@
 databases:
   - name: mysitedb
     plan: free
-    databaseName: mizzaria
+    databaseName: Mizzaria
     user: mizzaria_user
 
 services:
