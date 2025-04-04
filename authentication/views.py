@@ -15,7 +15,7 @@ from .serializers import RegisterSerializer, LoginSerializer, UserProfileSeriali
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 
-baseUrl = 'http://192.168.1.247:8000/'
+baseUrl = 'https://mizzaria.onrender.com/'
 
 # --- SCHEMAS POUR LES REQUÊTES PERSONNALISÉES ---
 email_param = openapi.Schema(
